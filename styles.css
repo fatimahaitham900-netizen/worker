@@ -1,0 +1,524 @@
+/* =========================================
+   المتغيرات والإعدادات الأساسية
+   ========================================= */
+:root {
+  --bg-top: #b8d3ee;
+  --bg-bottom: #9ec0e4;
+  --card-white: #ffffff;
+  --text-dark: #1f2d3d;
+  --text-light: #ffffff;
+  --shadow-card: 0 18px 36px -14px rgba(24, 52, 92, 0.28);
+  --shadow-card-hover: 0 28px 50px -12px rgba(24, 52, 92, 0.38);
+  --radius-pill: 999px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* كرات خلفية ناعمة لإضافة عمق مودرن */
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+  animation: orbDrift 14s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+  width: 360px;
+  height: 360px;
+  background: #d8ebff;
+  top: -80px;
+  right: -80px;
+}
+
+.orb-2 {
+  width: 420px;
+  height: 420px;
+  background: #87b1de;
+  bottom: -120px;
+  left: -100px;
+  animation-delay: -5s;
+}
+
+/* =========================================
+   الحاوية الرئيسية ورأس الصفحة
+   ========================================= */
+.portfolio-wrapper {
+  width: 100%;
+  max-width: 880px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 38px;
+  animation: fadeDown 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #2c4a6e;
+  box-shadow: 0 6px 16px rgba(31, 45, 61, 0.08);
+  margin-bottom: 14px;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3bc1b3;
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+.page-title {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 4px 18px rgba(27, 57, 94, 0.22);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.page-subtitle {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #294566;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* =========================================
+   تراص البطاقات المستطيلة
+   ========================================= */
+.projects-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.project-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  animation: cardEntrance 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* دخول متتابع متناسق للبطاقات */
+.project-card:nth-child(1) { animation-delay: 0.12s; }
+.project-card:nth-child(2) { animation-delay: 0.24s; }
+.project-card:nth-child(3) { animation-delay: 0.36s; }
+.project-card:nth-child(4) { animation-delay: 0.48s; }
+
+/* الإطار الأبيض الخارجي المستطيل (مطابق لفكرة التصميم المرجعي) */
+.card-frame {
+  position: relative;
+  background-color: var(--card-white);
+  padding: 15px 18px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition:
+    box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  /* نقاط زخرفية ناعمة على الإطار الأبيض */
+  background-image:
+    radial-gradient(circle at 12% 10%, var(--accent-soft) 5px, transparent 5.5px),
+    radial-gradient(circle at 38% 92%, var(--accent-soft) 6px, transparent 6.5px),
+    radial-gradient(circle at 65% 8%, var(--accent-soft) 5px, transparent 5.5px),
+    radial-gradient(circle at 88% 90%, var(--accent-soft) 6px, transparent 6.5px),
+    radial-gradient(circle at 97% 35%, var(--accent-soft) 5px, transparent 5.5px),
+    radial-gradient(circle at 3% 68%, var(--accent-soft) 5px, transparent 5.5px);
+}
+
+.project-card:hover {
+  transform: translateY(-6px) scale(1.01);
+}
+
+.project-card:hover .card-frame {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.project-card:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+/* الكبسولة الملونة الداخلية */
+.card-pill {
+  position: relative;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(125deg, var(--pill-start), var(--pill-end));
+  padding: 24px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  overflow: hidden;
+  min-height: 176px;
+}
+
+/* لمعان متحرك عند التمرير */
+.pill-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.24) 50%,
+    transparent 80%
+  );
+  transform: translateX(120%);
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.project-card:hover .pill-shine {
+  transform: translateX(-120%);
+}
+
+/* =========================================
+   ألوان كل مشروع
+   ========================================= */
+.card-housing {
+  --pill-start: #ff8e97;
+  --pill-end: #ff6e7b;
+  --accent-soft: #ffd7db;
+  --badge-color: #ff5b69;
+}
+
+.card-cars {
+  --pill-start: #6ad9ce;
+  --pill-end: #3ec1b4;
+  --accent-soft: #cef4ef;
+  --badge-color: #2aa69a;
+}
+
+.card-accounting {
+  --pill-start: #ffc682;
+  --pill-end: #ffa94d;
+  --accent-soft: #ffe8cc;
+  --badge-color: #e68619;
+}
+
+.card-hr {
+  --pill-start: #93a4ff;
+  --pill-end: #6d81f2;
+  --accent-soft: #dde2ff;
+  --badge-color: #5468e0;
+}
+
+/* =========================================
+   محتوى النصوص والروابط
+   ========================================= */
+.card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--text-light);
+  max-width: 58%;
+}
+
+.icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--badge-color);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  margin-bottom: 4px;
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.icon-badge svg {
+  width: 20px;
+  height: 20px;
+}
+
+.project-card:hover .icon-badge {
+  transform: scale(1.14) rotate(-6deg);
+}
+
+.project-name {
+  font-size: clamp(1.45rem, 2.8vw, 1.95rem);
+  font-weight: 900;
+  line-height: 1.25;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.project-desc {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.94);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.project-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #ffffff;
+  transition:
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.url-arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-card:hover .project-url {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.project-card:hover .url-arrow {
+  transform: translateX(-5px);
+}
+
+/* =========================================
+   الجانب المرئي والأشكال المتحركة
+   ========================================= */
+.card-visual {
+  position: relative;
+  width: 170px;
+  height: 132px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.illustration-box {
+  width: 122px;
+  height: 122px;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.14));
+  animation: floatSlow 4.5s ease-in-out infinite;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.project-card:nth-child(even) .illustration-box {
+  animation-delay: -2s;
+}
+
+.project-card:hover .illustration-box {
+  transform: scale(1.08) translateY(-4px);
+}
+
+.illustration-box svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* أشكال صغيرة طافية حول الرسم */
+.float-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.78);
+  pointer-events: none;
+  animation: floatShape 5s ease-in-out infinite;
+}
+
+.shape-a {
+  width: 16px;
+  height: 16px;
+  top: 10px;
+  right: 8px;
+}
+
+.shape-b {
+  width: 11px;
+  height: 11px;
+  bottom: 16px;
+  right: 16px;
+  animation-delay: -1.8s;
+}
+
+.shape-c {
+  width: 14px;
+  height: 14px;
+  top: 22px;
+  left: 4px;
+  border-radius: 4px;
+  transform: rotate(25deg);
+  animation-delay: -3.2s;
+}
+
+/* =========================================
+   تذييل الصفحة
+   ========================================= */
+.page-footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #294566;
+  opacity: 0.85;
+  animation: fadeDown 0.8s 0.55s both;
+}
+
+/* =========================================
+   الحركات (Animations)
+   ========================================= */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes floatShape {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0.55;
+  }
+}
+
+@keyframes orbDrift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(30px, 24px);
+  }
+}
+
+/* =========================================
+   التجاوب مع الشاشات الصغيرة
+   ========================================= */
+@media (max-width: 680px) {
+  body {
+    padding: 28px 14px;
+  }
+
+  .card-frame {
+    padding: 12px;
+  }
+
+  .card-pill {
+    border-radius: 28px;
+    padding: 22px 20px;
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .card-content {
+    max-width: 100%;
+    align-items: center;
+  }
+
+  .card-visual {
+    width: 120px;
+    height: 104px;
+  }
+
+  .illustration-box {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* احترام تفضيل تقليل الحركة */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
